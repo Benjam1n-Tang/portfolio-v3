@@ -26,7 +26,10 @@ export default function Home() {
           }}
         />
       </div>
-      <h1 className="absolute bottom-12 left-8 z-10 text-white text-[34px]">
+      <h1
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-white text-[34px] text-center"
+        style={{ mixBlendMode: "difference" }}
+      >
         Next.js background video
       </h1>
       <style jsx global>{`
