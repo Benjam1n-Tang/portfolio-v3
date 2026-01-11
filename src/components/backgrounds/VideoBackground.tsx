@@ -5,7 +5,7 @@ import Video from "next-video";
 
 const VideoBackground = () => {
   return (
-    <>
+    <div className="absolute inset-0">
       <Video
         src={handsWorking}
         autoPlay
@@ -25,7 +25,7 @@ const VideoBackground = () => {
           objectFit: "cover",
         }}
       />
-    </>
+    </div>
   );
 };
 
