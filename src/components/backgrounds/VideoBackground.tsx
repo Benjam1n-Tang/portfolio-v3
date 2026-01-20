@@ -1,4 +1,4 @@
-"use client";
+
 import screenCoding from "../../../videos/screen_coding.mp4";
 import handsWorking from "../../../videos/hands_working.mp4";
 import handsKeyboard from "../../../videos/hands_working.mp4";
