@@ -119,6 +119,7 @@ const neueMontreal = localFont({
 export const metadata: Metadata = {
   title: "Benjamin Tang - Software Engineer",
   description: "Portfolio of Benjamin Tang, a Software Engineer",
+  themeColor: "#1A262C",
 };
 
 export default function RootLayout({
