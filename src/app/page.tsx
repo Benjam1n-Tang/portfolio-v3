@@ -9,9 +9,7 @@ export default function Home() {
   return (
     <main className="relative h-[100dvh] w-screen overflow-hidden bg-black">
       <VideoBackground />
-      <div className="absolute top-0 w-full z-20 text-white mix-blend-difference">
-        <Navbar />
-      </div>
+      <Navbar />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-white text-center mix-blend-difference flex flex-col">
         <div className="font-graphik text-[clamp(3.75rem,5vw+2rem,5rem)] tracking-[8%] leading-[100%] pb-[0.2em]">
           <h1>BENJAMIN</h1>
