@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import { logoPrimary } from "@/assets";
+import { logoNav } from "@/assets";
 import SwapText from "./SwapText";
 import RippleButton from "./ui/RippleButton";
+import RippleLogo from "./ui/RippleLogo";
+import next from "next";
 
 const Navbar = () => {
   const menuItems = [
@@ -18,15 +20,16 @@ const Navbar = () => {
       {/* Desktop Navbar */}
       <header className="absolute top-0 w-full z-20 text-white mix-blend-difference hidden xl:flex">
         <nav className="w-full py-[3rem] md:px-[2.5rem] px-5 flex justify-between items-center ">
-          <aside className="flex items-center px-4">
+          <Link href="/works" className="flex items-center px-4">
             {" "}
-            <Image
-              src={logoPrimary}
+            <RippleLogo
+              src={logoNav}
               alt="Logo"
-              height="48"
-              className="cursor-pointer"
+              height={54}
+              width={54}
+              hoverFilterColor="brightness(0)"
             />{" "}
-          </aside>
+          </Link>
           <aside className="flex flex-row gap-[3rem] items-center justify-between">
             <div className="flex flex-row gap-[2.5rem]">
               {menuItems.slice(1).map((item) => (
@@ -48,6 +51,7 @@ const Navbar = () => {
                 className="uppercase px-6 rounded-full font-lg font-neue-montreal bg-[#839B9A] text-black font-medium tracking-wide"
                 rippleColor1="#A7C7C5"
                 rippleColor2="#B8DBD9"
+                showDownloadIcon
               >
                 Download CV
               </RippleButton>
@@ -60,11 +64,12 @@ const Navbar = () => {
       <header className="absolute top-0 w-full z-20 text-white flex xl:hidden">
         <nav className="w-full py-[3rem] md:px-[2.5rem] px-5 flex justify-between items-center">
           <aside className="flex items-center px-4 text-white">
-            <Image
-              src={logoPrimary}
+            <RippleLogo
+              src={logoNav}
               alt="Logo"
-              height="48"
-              className="cursor-pointer mix-blend-difference"
+              height={48}
+              width={48}
+              hoverFilterColor="brightness(0)"
             />
           </aside>
           <aside>hello world</aside>

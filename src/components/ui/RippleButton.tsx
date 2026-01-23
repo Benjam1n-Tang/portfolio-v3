@@ -3,6 +3,7 @@
 import * as React from "react";
 import gsap from "gsap";
 import { cn } from "@/lib/utils";
+import { Download } from "lucide-react";
 
 interface RippleButtonProps extends Omit<
   React.ComponentProps<"button">,
@@ -11,18 +12,25 @@ interface RippleButtonProps extends Omit<
   rippleColor1?: string;
   rippleColor2?: string;
   onAnimationLoad?: () => void;
+  showDownloadIcon?: boolean;
+  iconColor?: string;
+  iconBgColor?: string;
 }
 
 function RippleButton({
   className,
-  rippleColor1 = "#6AADA9",
-  rippleColor2 = "#4A8D89",
+  rippleColor1 = "#A7C7C5",
+  rippleColor2 = "#B8DBD9",
   children,
   onAnimationLoad,
+  showDownloadIcon = false,
+  iconColor = "#839B9A",
+  iconBgColor = "#000000",
   ...props
 }: RippleButtonProps) {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const titleRef = React.useRef<HTMLDivElement>(null);
+  const iconRef = React.useRef<HTMLDivElement>(null);
   const ripplesRef = React.useRef<HTMLDivElement[]>([]);
 
   React.useEffect(() => {
@@ -32,9 +40,15 @@ function RippleButton({
 
     if (!button || !title || ripples.length === 0) return;
 
+    // Immediately ensure button is visible on mount/remount
+    gsap.killTweensOf(button);
+    gsap.killTweensOf(title);
+    gsap.set(button, { opacity: 1, scaleX: 1, scaleY: 1 });
+    gsap.set(title, { opacity: 1 });
+
     // Load animation
     const tl = gsap.timeline();
-    tl.set(button, { willChange: "transform" }, 0);
+    tl.set(button, { willChange: "transform", opacity: 1 }, 0);
     tl.from(button, { opacity: 0, duration: 0.1 }, 0);
     tl.from(
       button,
@@ -83,6 +97,21 @@ function RippleButton({
         0,
       );
       t1.set(ripples, { willChange: "auto" });
+
+      if (showDownloadIcon && iconRef.current) {
+        t1.to(
+          iconRef.current,
+          {
+            width: "0.9rem",
+            height: "0.9rem",
+            padding: "0.6rem",
+            rotation: 0,
+            duration: 0.9,
+            ease: "power2.out",
+          },
+          0, // Start at the same time as ripple
+        );
+      }
     };
 
     // Hover reset animation
@@ -107,6 +136,21 @@ function RippleButton({
       );
       t2.set(button, { willChange: "auto" });
 
+      if (showDownloadIcon && iconRef.current) {
+        t2.to(
+          iconRef.current,
+          {
+            width: "0rem",
+            height: "0rem",
+            padding: "0rem",
+            rotation: -180,
+            duration: 0.5,
+            ease: "power2.in",
+          },
+          0,
+        );
+      }
+
       t2.set(ripples, { willChange: "transform", xPercent: 0 }, 0);
       t2.to(
         ripples,
@@ -126,11 +170,30 @@ function RippleButton({
     button.addEventListener("mouseenter", hoverAnimation);
     button.addEventListener("mouseleave", hoverAnimationReset);
 
+    // Handle browser back/forward cache
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted && button && title) {
+        // Kill all active animations on this button
+        gsap.killTweensOf([button, title, ripples]);
+        // Force final state without clearProps to maintain visibility
+        gsap.set(button, {
+          opacity: 1,
+          scaleX: 1,
+          scaleY: 1,
+          willChange: "auto",
+        });
+        gsap.set(title, { opacity: 1 });
+        gsap.set(ripples, { display: "none" });
+      }
+    };
+    window.addEventListener("pageshow", handlePageShow);
+
     return () => {
       button.removeEventListener("mouseenter", hoverAnimation);
       button.removeEventListener("mouseleave", hoverAnimationReset);
+      window.removeEventListener("pageshow", handlePageShow);
     };
-  }, [onAnimationLoad]);
+  }, [onAnimationLoad, showDownloadIcon]);
 
   return (
     <button
@@ -162,6 +225,24 @@ function RippleButton({
         className="relative z-10 flex items-center justify-center h-full"
       >
         {children}
+        {showDownloadIcon && (
+          <div className="icon flex items-center justify-center ml-2 h-8">
+            <span
+              ref={iconRef}
+              className="rounded-full flex items-center justify-center overflow-hidden"
+              style={{
+                backgroundColor: iconBgColor,
+                width: "0rem",
+                height: "0rem",
+                padding: "0rem",
+                transform: "rotate(-180deg)",
+                mixBlendMode: "normal",
+              }}
+            >
+              <Download size={12} className="text-white shrink-0" />
+            </span>
+          </div>
+        )}
       </div>
     </button>
   );
