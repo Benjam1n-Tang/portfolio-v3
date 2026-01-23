@@ -11,11 +11,11 @@ export default function Home() {
       <VideoBackground />
       <Navbar />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-white text-center mix-blend-difference flex flex-col">
-        <div className="font-graphik text-[clamp(3.75rem,5vw+2rem,5rem)] tracking-[8%] leading-[100%] pb-[0.2em]">
+        <div className="font-graphik text-[clamp(3rem,5vw+2rem,5rem)] tracking-[8%] leading-[100%] pb-[0.2em]">
           <h1>BENJAMIN</h1>
           <h1>TANG</h1>
         </div>
-        <div className="font-inter-display text-[clamp(1.5rem,1.9vw+0.9rem,2.25rem)] leading-[100%] font-medium">
+        <div className="font-inter-display text-[clamp(1rem,1.9vw+0.9rem,2.25rem)] leading-[100%] font-medium">
           <TextType
             text={[
               "Software Engineer",

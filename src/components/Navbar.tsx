@@ -2,47 +2,8 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { logoPrimary } from "@/assets";
-
-const SwapText: React.FC<{ text: string }> = ({ text }) => {
-  const chars = Array.from(text);
-
-  return (
-    <span className="text-white font-neue-montreal uppercase font-medium relative block text-lg overflow-hidden whitespace-nowrap leading-[0.9]">
-      {/* top */}
-      <span className="block">
-        {chars.map((char, i) => (
-          <span
-            key={`top-${i}`}
-            className="inline-block will-change-transform transition-transform group-hover:-translate-y-[110%]"
-            style={{
-              transitionDuration: "250ms",
-              transitionDelay: `${i * 25}ms`,
-              transitionTimingFunction: "ease-in-out",
-            }}
-          >
-            {char === " " ? "\u00A0" : char}
-          </span>
-        ))}
-      </span>
-      {/* bottom */}
-      <span className="absolute inset-0">
-        {chars.map((char, i) => (
-          <span
-            key={`bottom-${i}`}
-            className="inline-block will-change-transform transition-transform translate-y-[110%] group-hover:translate-y-0"
-            style={{
-              transitionDuration: "250ms",
-              transitionDelay: `${i * 25}ms`,
-              transitionTimingFunction: "ease-in-out",
-            }}
-          >
-            {char === " " ? "\u00A0" : char}
-          </span>
-        ))}
-      </span>
-    </span>
-  );
-};
+import SwapText from "./SwapText";
+import RippleButton from "./ui/RippleButton";
 
 const Navbar = () => {
   const menuItems = [
@@ -79,10 +40,17 @@ const Navbar = () => {
               ))}
             </div>
             <div>
-              <Button className="uppercase px-6 py-6 rounded-full font-lg font-neue-montreal bg-[#B8DBD9] text-black font-medium tracking-wide">
+              {/* <Button className="uppercase px-6 py-6 rounded-full font-lg font-neue-montreal bg-[#B8DBD9] text-black font-medium tracking-wide">
                 {" "}
                 Download CV{" "}
-              </Button>
+              </Button> */}
+              <RippleButton
+                className="uppercase px-6 rounded-full font-lg font-neue-montreal bg-[#839B9A] text-black font-medium tracking-wide"
+                rippleColor1="#A7C7C5"
+                rippleColor2="#B8DBD9"
+              >
+                Download CV
+              </RippleButton>
             </div>
           </aside>
         </nav>

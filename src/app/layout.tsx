@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -119,6 +120,9 @@ const neueMontreal = localFont({
 export const metadata: Metadata = {
   title: "Benjamin Tang - Software Engineer",
   description: "Portfolio of Benjamin Tang, a Software Engineer",
+};
+
+export const viewport: Viewport = {
   themeColor: "#1A262C",
 };
 
@@ -128,11 +132,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className="dark"
+      style={{ colorScheme: "dark" }}
+      suppressHydrationWarning
+    >
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${graphikBold.variable} ${interDisplay.variable} ${neueMontreal.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
