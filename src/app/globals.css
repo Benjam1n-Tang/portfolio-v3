@@ -110,7 +110,7 @@ video {
 }
 
 .dark {
-  --background: #141D22;
+  --background: #141d22;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -154,4 +154,54 @@ video {
   label {
     @apply font-neue-montreal font-bold uppercase leading-[140%] text-base;
   }
+}
+
+/* Hamburger Menu Styles */
+.ham {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 400ms;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.hamRotate.active {
+  transform: rotate(45deg);
+}
+
+.line {
+  fill: none;
+  transition:
+    stroke-dasharray 400ms,
+    stroke-dashoffset 400ms;
+  stroke: #fff;
+  stroke-width: 5.5;
+  stroke-linecap: round;
+}
+
+.ham7 .top {
+  stroke-dasharray: 40 82;
+}
+
+.ham7 .middle {
+  stroke-dasharray: 40 111;
+}
+
+.ham7 .bottom {
+  stroke-dasharray: 40 161;
+}
+
+.ham7.active .top {
+  stroke-dasharray: 17 82;
+  stroke-dashoffset: -62px;
+}
+
+.ham7.active .middle {
+  stroke-dashoffset: 23px;
+}
+
+.ham7.active .bottom {
+  stroke-dashoffset: -83px;
 }

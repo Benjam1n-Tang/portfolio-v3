@@ -6,8 +6,11 @@ import SwapText from "./SwapText";
 import RippleButton from "./ui/RippleButton";
 import RippleLogo from "./ui/RippleLogo";
 import next from "next";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [isMenuActive, setIsMenuActive] = useState(false);
+
   const menuItems = [
     { label: "Home", link: "/" },
     { label: "About", link: "/about" },
@@ -61,9 +64,9 @@ const Navbar = () => {
       </header>
 
       {/* Mobile Navbar */}
-      <header className="absolute top-0 w-full z-20 text-white flex xl:hidden">
-        <nav className="w-full py-[3rem] md:px-[2.5rem] px-5 flex justify-between items-center">
-          <aside className="flex items-center px-4 text-white">
+      <header className="top-0 w-full z-20 text-white flex xl:hidden">
+        <nav className="relative w-full py-[2rem] md:px-[2.5rem] px-4 flex justify-end items-center">
+          <aside className="flex items-center px-4 text-white absolute z left-2 mix-blend-difference">
             <RippleLogo
               src={logoNav}
               alt="Logo"
@@ -72,7 +75,24 @@ const Navbar = () => {
               hoverFilterColor="brightness(0)"
             />
           </aside>
-          <aside>hello world</aside>
+          <aside className="bg-[#141D22] p-[0.25rem] rounded-lg">
+            <svg
+              className={`ham hamRotate ham7 ${isMenuActive ? "active" : ""}`}
+              viewBox="0 0 100 100"
+              width="48"
+              onClick={() => setIsMenuActive(!isMenuActive)}
+            >
+              <path
+                className="line top"
+                d="m 70,33 h -40 c 0,0 -6,1.368796 -6,8.5 0,7.131204 6,8.5013 6,8.5013 l 20,-0.0013"
+              />
+              <path className="line middle" d="m 70,50 h -40" />
+              <path
+                className="line bottom"
+                d="m 69.575405,67.073826 h -40 c -5.592752,0 -6.873604,-9.348582 1.371031,-9.348582 8.244634,0 19.053564,21.797129 19.053564,12.274756 l 0,-40"
+              />
+            </svg>
+          </aside>
         </nav>
       </header>
     </>
